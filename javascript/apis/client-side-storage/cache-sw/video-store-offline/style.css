@@ -4,21 +4,33 @@ html {
 
 body {
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 1000px;
 }
 
 header, footer {
-  background-color: green;
-  color: white;
+  background-color: rgb(98, 0, 128);
+  color: rgb(255, 255, 255);
   line-height: 100px;
   padding: 0 20px;
+  box-shadow:
+  inset 0 -3em 3em rgba(255, 255, 255, 0.3),
+  0.3em 0.3em 1em rgba(0, 0, 0, 0.6);
 }
 
 article {
-  padding: 10px;
+  justify-content: center;
+  padding: 20px;
   margin: 10px 0;
-  border: 1px solid black;
-  background-color: #eee;
+  background-color: #ffffff;
+  box-shadow:
+    inset 0 -3em 3em rgba(255, 255, 255, 0.3),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.6);
+}
+
+.container {
+  justify-content: center;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 h2 {
@@ -26,6 +38,7 @@ h2 {
 }
 
 video {
+  justify-content: center;
   margin: 0 auto;
   border: 1px solid black;
   display: block;
