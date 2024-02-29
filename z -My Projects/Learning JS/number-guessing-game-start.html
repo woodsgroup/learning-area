@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Number guessing game</title>
+
+    <style>
+
+      .guessSubmit{
+        width: 100px;
+        height: 20px;
+        background: rgb(88, 88, 88);
+        -webkit-backdrop-filter: blur(17px);
+        backdrop-filter: blur(17px);
+        border: 1px solid rgba(255,255,255,0.25);
+        color: white;
+        border-radius: 3px;
+      }
+
+      .buttons {
+        visibility: hidden;
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .buttons button {
+        width: 150px;
+        height: 30px;
+        background: green;
+        -webkit-box-shadow:0px 0px 10px 0px green;
+        -moz-box-shadow: 0px 0px 10px 0px green;
+        box-shadow: 0px 0px 10px 0px green;
+        -webkit-backdrop-filter: blur(17px);
+        backdrop-filter: blur(17px);
+        border: 1px solid rgba(255,255,255,0.25);
+        margin: 20px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        font-size: 14px;
+        letter-spacing: 1px;
+        font-weight: 500;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+      }
+
+      .buttons button:before, .buttons button:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: white;
+        transition: all 0.3s cubic-bezier(0.35, 0.1, 0.25, 1);
+      }
+
+      .buttons button:before {
+        right: 0;
+        top: 0;
+        transition: all 0.5s cubic-bezier(0.35, 0.1, 0.25, 1);
+      }
+
+      .buttons button:after {
+        left: 0;
+        bottom: 0;
+      }
+
+      .buttons button span {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin: 0;
+        padding: 0;
+        z-index: 1;
+      }
+
+      .buttons button span:before, .buttons button span:after {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 0;
+        background-color: white;
+        transition: all 0.3s cubic-bezier(0.35, 0.1, 0.25, 1);
+      }
+
+      .buttons button span:before {
+        right: 0;
+        top: 0;
+        transition: all 0.5s cubic-bezier(0.35, 0.1, 0.25, 1);
+      }
+
+      .buttons button span:after {
+        left: 0;
+        bottom: 0;
+      }
+
+      .buttons button p {
+        padding: 0;
+        margin: 0;
+        transition: all 0.4s cubic-bezier(0.35, 0.1, 0.25, 1);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .buttons button p:before, .buttons button p:after {
+        position: absolute;
+        width: 100%;
+        transition: all 0.4s cubic-bezier(0.35, 0.1, 0.25, 1);
+        z-index: 1;
+        left: 0;
+      }
+
+      .buttons button p:before {
+        content: attr(data-title);
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .buttons button p:after {
+        content: attr(data-text);
+        top: 150%;
+        color: white;
+      }
+
+      .buttons button:hover:before, .buttons button:hover:after {
+        width: 100%;
+      }
+
+      .buttons button:hover span {
+        z-index: 1;
+      }
+
+      .buttons button:hover span:before, .buttons button:hover span:after {
+        height: 100%;
+      }
+
+      .buttons button:hover p:before {
+        top: -50%;
+        transform: rotate(5deg);
+      }
+
+      .buttons button:hover p:after {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .buttons button.start {
+        background-color: white;
+        box-shadow: 0px 5px 10px -10px rgba(0, 0, 0, 0.2);
+        transition: all 0.2s ease;
+      }
+
+      .buttons button.start p:before {
+        top: -50%;
+        transform: rotate(5deg);
+      }
+
+      .buttons button.start p:after {
+        color: white;
+        transition: all 0s ease;
+        content: attr(data-start);
+        top: 50%;
+        transform: translateY(-50%);
+        animation: start 0.3s ease;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes start {
+        from {
+          top: -50%;
+        }
+      }
+
+      .buttons button.start:hover:before, .buttons button.start:hover:after {
+        display: none;
+      }
+
+      .buttons button.start:hover span {
+        display: none;
+      }
+
+      .buttons button:active {
+        outline: none;
+        border: none;
+      }
+
+      .buttons button:focus {
+        outline: 0;
+      }
+
+      html {
+        width: 100vw;
+        font-family: sans-serif;
+        font-size: 1.2rem ;
+        background-color: rgb(165, 165, 165);
+      }
+
+      .sectioncontain {
+        width: 100vw;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+      }
+
+      .contain {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        max-width: 5rem;
+        min-width: 600px;
+        margin: 0 auto;
+        padding: 5rem;
+        justify-content: center;
+        border-radius: 50px;
+          background: #b5b5b5;
+          box-shadow:  20px 20px 60px #9a9a9a,
+          -20px -20px 60px #d0d0d0;
+      }
+
+      .form{
+        z-index: 1;
+        position: relative;
+        text-align: center;
+        color: rgb(0, 0, 0);
+        border-radius: 10px;
+        padding: 10px;
+        background: rgba(255,255,255,0.5);
+        -webkit-backdrop-filter: blur(17px);
+        backdrop-filter: blur(17px);
+        border: 1px solid rgba(255,255,255,0.25);
+      }
+
+      .form input[type="number"] {
+        height: 18px;
+        border-radius: 10px;
+        padding-left: 10px;
+        width: 50px;
+        margin: 10px;
+        border: 1px solid rgba(255,255,255,0.25);
+      }
+
+      .lastResult {
+        display: flex;
+        justify-content: space-around;
+        width: auto;
+        height: 20px;
+        -webkit-backdrop-filter: blur(17px);
+        backdrop-filter: blur(17px);
+        border: 1px solid rgba(255,255,255,0.25);
+        margin: 30px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        font-size: 14px;
+        letter-spacing: 1px;
+        font-weight: 500;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        border: 0;
+        display: flex;
+        align-items: center;
+        border-radius: 3px;
+        text-align: center;
+        color: white;
+        padding: 10px;
+      }
+
+      #lastResultRed {
+        background-color: red;
+        border-radius: 10px;
+        -webkit-box-shadow:0px 0px 10px 0px red;
+        -moz-box-shadow: 0px 0px 10px 0px red;
+        box-shadow: 0px 0px 10px 0px red;
+      }
+      #lastResultGreen {
+        background-color: green;
+        border-radius: 10px;
+        -webkit-box-shadow:0px 0px 10px 0px green;
+        -moz-box-shadow: 0px 0px 10px 0px green;
+        box-shadow: 0px 0px 10px 0px green;
+      }
+
+      .guesses {
+        visibility: hidden;
+        text-align: left;
+        min-width: 560px;
+        color: rgb(0, 0, 0);
+        margin-top: 25px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.5);
+        -webkit-backdrop-filter: blur(17px);
+        backdrop-filter: blur(17px);
+        border: 1px solid rgba(255,255,255,0.25);
+        transition: all 0.3s ease;
+      }
+
+    </style>
+  </head>
+
+  <body>
+
+    <div class="sectioncontain">
+      <div>
+
+
+  <div id= "contain" class="contain">
+    <h1>Number guessing game</h1>
+
+    <p>Pick a number between 1 and 100. We'll tell you if it's higher or lower.</p>
+    <p class="triesP">You have <span id="tries">8</span> tries to get it right!</p>
+    <div class="form">
+      <label for="guessField">Enter a guess: </label>
+      <input type="number" min="1" max="100" required id="guessField" class="guessField">
+      <input type="submit" value="Submit guess" class="guessSubmit">
+    </div>
+
+    <div class="resultParas">
+        <p class="lastResult"></p>
+        <p class="lowOrHi"></p>
+    </div>
+      <p class="guesses"></p>
+    <div class="buttons">
+      <button class="btn"><span></span><p data-start="good luck!" data-text="start!" data-title="new game"></p></button>
+    </div>
+
+
+  </div>
+</div>
+
+    <script>
+      let randomNumber = Math.floor(Math.random() * 100) + 1;
+      const guesses = document.querySelector(".guesses");
+      const lastResult = document.querySelector(".lastResult");
+      const lowOrHi = document.querySelector(".lowOrHi");
+      const guessSubmit = document.querySelector(".guessSubmit");
+      const guessField = document.querySelector(".guessField");
+      const turncountpara = document.querySelector(".turncountpara");
+      const resetButton = document.querySelector(".buttons");
+      const triesP = document.querySelector(".triesP");
+      const tries = document.querySelector("#triesP");
+      let guessCount = 1;
+      let getCon = document.getElementById("contain");
+      guessField.focus();
+      
+
+      function checkGuess() {
+        const userGuess = Number(guessField.value);
+        if (guessCount === 1) {
+          guesses.textContent = "Previous guesses:";
+          guesses.style.fontSize = "150%";
+          guesses.style.padding = "10px";
+          guesses.style.visibility = "visible";
+        }
+
+        guesses.textContent = `${guesses.textContent} ${userGuess}`;
+
+        if (userGuess === randomNumber) {
+          lastResult.textContent = "Congratulations! You got it right!";
+          lastResult.id = "lastResultGreen";
+          lowOrHi.textContent = "";
+          triesP.style.visibility = "hidden";
+          setGameOver();
+        } else if (guessCount === 7) {
+          triesP.textContent = 'Last Try!';
+        } else if (guessCount === 8) {
+          lastResult.textContent = "!!!GAME OVER!!!";
+          lowOrHi.textContent = "";
+          triesP.textContent = "";
+          setGameOver();
+        } else {
+          triesP.innerHTML = `You have ${8-guessCount} tries to get it right!`;
+          lastResult.textContent = "Wrong!";
+          lastResult.id = "lastResultRed";
+        if (userGuess < randomNumber) {
+          lowOrHi.textContent = "Last guess was too low!";
+        } else if (userGuess > randomNumber) {
+          lowOrHi.textContent = "Last guess was too high!";
+          }
+        }
+
+        guessCount++;
+        
+        guessField.value = "";
+        guessField.focus();
+      }
+
+    guessSubmit.addEventListener('click', checkGuess);
+    guessField.addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+          if (guessCount <= 10) {
+            checkGuess();
+          }
+        }
+    });
+
+    function setGameOver() {
+      guessField.disabled = true;
+      guessSubmit.disabled = true;
+      guessSubmit.style.backgroundColor = "#d0d0d0";
+      resetButton.style.visibility = "visible";
+      resetButton.addEventListener("click", btn);
+      guessField.addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+        }
+      });
+    }
+
+    function resetGame() {
+      guessCount = 1;
+      const resetParas = document.querySelectorAll(".resultParas p");
+      for (const resetPara of resetParas) {
+        resetPara.textContent = "";
+      }
+      guessField.disabled = false;
+      guessSubmit.disabled = false;
+      guessSubmit.style.backgroundColor = 'rgb(88, 88, 88';
+      resetButton.style.visibility = "hidden";
+      guessField.value = "";
+      guessField.focus();
+      lastResult.style.backgroundColor = "";
+      lastResult.id = "";
+      guesses.style.fontSize = "100%";
+      guesses.style.padding = "0px";
+      guesses.style.boxShadow = "none";
+      guesses.style.visibility = "hidden";
+      triesP.innerHTML = 'You have 8 tries to get it right!';
+      triesP.style.visibility = "visible";
+
+      randomNumber = Math.floor(Math.random() * 100) + 1;
+    }
+
+    resetButton.addEventListener("click", resetGame);
+
+    </script>
+  </body>
+</html>
