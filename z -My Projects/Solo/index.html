@@ -22,25 +22,34 @@
 
             <div class="form-group">
 
-              <label for="name" class="label">Name:</label>
+              <label for="name" class="inputlabel">Name:</label>
               <input class="input" maxlength="256" name="name" data-name="Name" placeholder="John Doe" type="text" id="name">
 
-              <label for="email" class="label">Email Address:</label>
+
+              <label for="email" class="inputlabel">Email Address:</label>
               <input class="input" maxlength="256" name="email" data-name="Email" placeholder="Example@" type="email" id="email" required="">
 
             </div>
 
             <div class="textarea">
-              <label for="msg" class="label">How Can We Help You?</label>
+              <label for="msg" class="inputlabel">How Can We Help You?</label>
               <textarea class="input" name="msg" data-name="msg" type="text" id="msg" rows="10" cols="50"></textarea>
             </div>
 
               <div class="radiogroup">
 
                 <div class="wrapper">
-                  <input type="checkbox" id="listAccept" name="listAccept" Value="listAccept" class="state" />
-                  <label for="listAccept" class="label">
-                    <span class="text">Would you like to join our mailing list?</span>
+                  <input type="checkbox" id="altAccept" name="altAccept" Value="altAccept" class="state" required="">
+                  <label for="altAccept" class="label">
+                    <span class="text">Accept Terms</span>
+                    <div class="indicator"></div>
+                  </label>
+                </div>
+
+                <div class="wrapper">
+                  <input type="checkbox" id="mailAccept" name="mailAccept" Value="mailAccept" class="state" />
+                  <label for="mailAccept" class="label">
+                    <span class="text">Subscribe to newsletter?</span>
                     <div class="indicator"></div>
                   </label>
                 </div>
@@ -55,7 +64,7 @@
 
   </div>
 
-<script src="main.js"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>

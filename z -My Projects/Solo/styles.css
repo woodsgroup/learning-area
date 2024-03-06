@@ -52,7 +52,7 @@ h1 {
   border: 1px solid #5bc08e;
   transition: all 0.3s;
   background: linear-gradient(155deg, #61cd98, #52ad80);
-  box-shadow:  -6px -6px 12px #4da379,6px 6px -12px #69dda3;
+  box-shadow:  -6px -6px -12px #4da379,6px 6px 12px #69dda3;
 }
 
 .button:hover {
@@ -61,17 +61,19 @@ h1 {
 }
 
 .input {
+  resize: none;
   border: none;
   padding: .5rem;
   border-radius: 1rem;
-  background: #e8e8e8;
+  background: #c5dacb;
   transition: 0.3s;
 }
 
 .input:focus {
-  outline-color: #e8e8e8;
+  border: none;
+  outline: none;
   background: #e8e8e8;
-  box-shadow: inset 20px 20px 60px #c5c5c5,inset -20px -20px 60px #ffffff;
+  box-shadow: inset 4px 4px 12px #bfbfbf, inset -4px -4px 12px #ffffff;
   transition: 0.3s;
 }
 
@@ -106,12 +108,21 @@ h1 {
 
 .label {
   display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  cursor: pointer;
+  color: #394a56;
+}
+
+.inputlabel {
+  display: flex;
   cursor: pointer;
   color: #394a56;
 }
 
 .text {
-  opacity: 0.6;
+  opacity: 1;
   transition: opacity 0.2s linear, transform 0.2s ease-out;
 }
 
@@ -150,10 +161,6 @@ h1 {
 .state:checked ~ .label .indicator::after {
   transform: scale3d(0.975, 0.975, 1) translate3d(0, 10%, 0);
   opacity: 0;
-}
-
-.state:focus ~ .label .text {
-  opacity: 1;
 }
 
 .label:hover .text {
